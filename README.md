@@ -16,6 +16,11 @@ Basic_Shop React project, shop for Ajvar
 - [Commitlint](https://commitlint.js.org/) - Lint commit messages
 - [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.2/) - Specification for commit messages
 - [Lint Staged](https://github.com/okonet/lint-staged/) - Run linters and formatters against staged git files
+- [Tailwindcss](https://tailwindcss.com/) - Styling
+
+#### Loaders
+
+- [SVGR](https://www.npmjs.com/package/vite-plugin-svgr) - SVG Loader
 
 ## Installation
 
