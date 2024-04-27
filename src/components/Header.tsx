@@ -12,13 +12,13 @@ const Header = ({ type }: HeaderProps) => {
         <nav>
           <ul className="flex items-center justify-center gap-3">
             <li>
-              <StyledLink href="/">Home</StyledLink>
+              <StyledLink to="/">Home</StyledLink>
             </li>
             <li>
-              <StyledLink href="/shop">Store</StyledLink>
+              <StyledLink to="/shop">Store</StyledLink>
             </li>
             <li>
-              <StyledLink href="/console">Console</StyledLink>
+              <StyledLink to="/console">Console</StyledLink>
             </li>
             {type === 'cart' && (
               <ShoppingBag
