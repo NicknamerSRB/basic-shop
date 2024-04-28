@@ -1,5 +1,5 @@
-const HomePage = () => {
+const ConsolePage = () => {
   return <></>
 }
 
-export default HomePage
+export default ConsolePage
