@@ -1,15 +1,16 @@
 import { ReactNode } from 'react'
+import { NavLink, To } from 'react-router-dom'
 
 type Props = {
-  href?: string
+  to: To
   children?: ReactNode
 }
 
-const StyledLink = ({ href, children }: Props) => {
+const StyledLink = ({ to, children }: Props) => {
   return (
-    <a href={href} className="text-2xl font-bold hover:text-gray-400">
+    <NavLink to={to} className="text-2xl font-bold hover:text-gray-400">
       {children}
-    </a>
+    </NavLink>
   )
 }
 
