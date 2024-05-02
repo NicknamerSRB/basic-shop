@@ -3,8 +3,21 @@ import Layout from './components/Layout'
 import HomePage from './components/pages/HomePage'
 import ShopPage from './components/pages/ShopPage'
 import ConsolePage from './components/pages/ConsolePage'
+import { useEffect } from 'react'
+import { getAllProducts } from './services/products'
 
 function App() {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const products = await getAllProducts()
+        console.log(products)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchData()
+  }, [])
   return (
     <Routes>
       <Route path="/" element={<Layout type={'cart'} />}>
