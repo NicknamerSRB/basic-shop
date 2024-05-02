@@ -18,6 +18,8 @@ Basic_Shop React project, shop for Ajvar
 - [Lint Staged](https://github.com/okonet/lint-staged/) - Run linters and formatters against staged git files
 - [Tailwindcss](https://tailwindcss.com/) - Styling
 - [React Router](https://reactrouter.com/en/main/) - Routing
+- [JSON server](https://github.com/typicode/json-server) - Server and Database
+- [Concurrently](https://github.com/open-cli-tools/concurrently) - Run multiple commands concurrently
 
 #### Loaders
 
