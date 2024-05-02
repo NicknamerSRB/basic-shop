@@ -4,13 +4,13 @@ import HomePage from './components/pages/HomePage'
 import ShopPage from './components/pages/ShopPage'
 import ConsolePage from './components/pages/ConsolePage'
 import { useEffect } from 'react'
-import { getAllProducts } from './services/products'
+import { getProducts } from './services/products'
 
 function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const products = await getAllProducts()
+        const products = await getProducts()
         console.log(products)
       } catch (error) {
         console.log(error)
