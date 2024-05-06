@@ -1,15 +1,10 @@
-import { jsonApi } from '@/services/jsonApi'
-import { END_POINT, Product } from '@/services/products'
+import { Product, getProducts } from '@/services/products'
 import { useState, useEffect } from 'react'
 
 type GetProductsQuery = {
   isLoading: boolean
   error: string
   data: Product[] | null
-}
-
-const getProducts = (): Promise<Product[]> => {
-  return jsonApi<Product[]>({ endpoint: END_POINT })
 }
 
 const ShopPage = () => {

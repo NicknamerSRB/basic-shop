@@ -1,3 +1,5 @@
+import { jsonApi } from './jsonApi'
+
 export const END_POINT = '/products'
 type ProductCategory =
   | 'Shoes'
@@ -40,4 +42,8 @@ export type Product = {
   name: string
   price: number
   stockQuantity: number
+}
+
+export const getProducts = (): Promise<Product[]> => {
+  return jsonApi<Product[]>({ endpoint: END_POINT })
 }
