@@ -1,6 +1,4 @@
-import { jsonApi } from './jsonApi'
-
-const END_POINT = '/products'
+export const END_POINT = '/products'
 type ProductCategory =
   | 'Shoes'
   | 'Clothing'
@@ -42,7 +40,4 @@ export type Product = {
   name: string
   price: number
   stockQuantity: number
-}
-export const getProducts = (query?: string) => {
-  return jsonApi<Product>({ endpoint: END_POINT, query: query })
 }
