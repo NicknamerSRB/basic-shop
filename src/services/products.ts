@@ -1,6 +1,6 @@
 import { jsonApi } from './jsonApi'
 
-export const END_POINT = '/products'
+const END_POINT = '/products'
 type ProductCategory =
   | 'Shoes'
   | 'Clothing'

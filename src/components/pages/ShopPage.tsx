@@ -23,7 +23,7 @@ const ShopPage = () => {
       })
 
       try {
-        const products: Product[] = await getProducts()
+        const products = await getProducts()
         setGetProductsQuery({
           isLoading: false,
           error: '',
