@@ -30,9 +30,10 @@ const ShopPage = () => {
           data: products,
         })
       } catch (error) {
+        const err = error as Error
         setGetProductsQuery({
           isLoading: false,
-          error: 'Products not fetch',
+          error: err.message,
           data: null,
         })
       }

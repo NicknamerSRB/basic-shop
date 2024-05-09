@@ -44,6 +44,6 @@ export type Product = {
   stockQuantity: number
 }
 
-export const getProducts = (): Promise<Product[]> => {
-  return jsonApi<Product[]>({ endpoint: END_POINT })
+export const getProducts = (query?: string) => {
+  return jsonApi<Product[]>({ endpoint: END_POINT, query: query })
 }
