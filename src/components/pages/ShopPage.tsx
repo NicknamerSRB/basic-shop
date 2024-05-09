@@ -1,48 +1,25 @@
-import { Product, getProducts } from '@/services/products'
-import { useState, useEffect } from 'react'
+import React, { useReducer, useEffect } from 'react'
+import { getProducts } from '@/services/products'
+import { queryReducer, defaultQueryReducerState } from '@/reducers/queryReducer'
 
-type GetProductsQuery = {
-  isLoading: boolean
-  error: string
-  data: Product[] | null
-}
-
-const ShopPage = () => {
-  const [getProductsQuery, setGetProductsQuery] = useState<GetProductsQuery>({
-    isLoading: false,
-    error: '',
-    data: null,
-  })
+const Shop: React.FC = () => {
+  const [state] = useReducer(queryReducer, defaultQueryReducerState)
 
   useEffect(() => {
     const fetchData = async () => {
-      setGetProductsQuery({
-        isLoading: true,
-        error: '',
-        data: null,
-      })
-
       try {
         const products = await getProducts()
-        setGetProductsQuery({
-          isLoading: false,
-          error: '',
-          data: products,
-        })
+        console.log(products)
       } catch (error) {
         const err = error as Error
-        setGetProductsQuery({
-          isLoading: false,
-          error: err.message,
-          data: null,
-        })
+        console.error('Error fetching products:', error)
       }
     }
+
     fetchData()
-  }, [])
-  console.log(getProductsQuery)
+  }, [state.defaultGetProductsQuery])
 
   return <></>
 }
 
-export default ShopPage
+export default Shop
