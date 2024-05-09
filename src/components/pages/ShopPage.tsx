@@ -3,21 +3,23 @@ import { getProducts } from '@/services/products'
 import { queryReducer, defaultQueryReducerState } from '@/reducers/queryReducer'
 
 const Shop: React.FC = () => {
-  const [state] = useReducer(queryReducer, defaultQueryReducerState)
+  const [state, dispatch] = useReducer(queryReducer, defaultQueryReducerState)
 
   useEffect(() => {
     const fetchData = async () => {
+      dispatch({ type: 'init' })
       try {
         const products = await getProducts()
-        console.log(products)
+        dispatch({ type: 'success', payload: products })
       } catch (error) {
-        const err = error as Error
-        console.error('Error fetching products:', error)
+        const { message } = error as Error
+        dispatch({ type: 'error', payload: message })
       }
     }
 
     fetchData()
-  }, [state.defaultGetProductsQuery])
+  }, [])
+  console.log(state)
 
   return <></>
 }

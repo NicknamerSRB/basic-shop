@@ -1,11 +1,20 @@
+import { Product } from '@/services/products'
+
 type QueryReducerState = {
-  defaultGetProductsQuery: string
+  isLoading: boolean
+  error: string
+  data: null | Product[]
 }
 
-type Action = { type: 'UPDATE_DEFAULT_QUERY'; payload: string }
+type Action =
+  | { type: 'init' }
+  | { type: 'error'; payload: string }
+  | { type: 'success'; payload: Product[] }
 
 const defaultQueryReducerState: QueryReducerState = {
-  defaultGetProductsQuery: '',
+  isLoading: false,
+  error: '',
+  data: null,
 }
 
 const queryReducer = (
@@ -13,9 +22,12 @@ const queryReducer = (
   action: Action,
 ): QueryReducerState => {
   switch (action.type) {
-    case 'UPDATE_DEFAULT_QUERY':
-      return { ...state, defaultGetProductsQuery: action.payload }
-
+    case 'init':
+      return { isLoading: true, error: '', data: null }
+    case 'error':
+      return { isLoading: false, error: action.payload, data: null }
+    case 'success':
+      return { isLoading: false, error: '', data: action.payload }
     default:
       return state
   }
