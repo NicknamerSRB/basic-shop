@@ -1,8 +1,8 @@
-import React, { useReducer, useEffect } from 'react'
+import { useReducer, useEffect } from 'react'
 import { getProducts } from '@/services/products'
 import { queryReducer, defaultQueryReducerState } from '@/reducers/queryReducer'
 
-const Shop: React.FC = () => {
+const Shop = () => {
   const [state, dispatch] = useReducer(queryReducer, defaultQueryReducerState)
 
   useEffect(() => {

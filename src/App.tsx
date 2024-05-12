@@ -7,7 +7,7 @@ import ConsolePage from './components/pages/ConsolePage'
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Layout type={'cart'} />}>
+      <Route path="/" element={<Layout type="cart" />}>
         <Route index element={<HomePage />} />
         <Route path="shop" element={<ShopPage />} />
       </Route>
