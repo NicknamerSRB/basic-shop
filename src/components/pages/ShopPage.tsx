@@ -1,9 +1,9 @@
-import { useReducer, useEffect } from 'react'
+import { useEffect, useContext } from 'react'
 import { getProducts } from '@/services/products'
-import { queryReducer, defaultQueryReducerState } from '@/reducers/queryReducer'
+import { QueryContext } from '@/contexts/QueryContext'
 
 const Shop = () => {
-  const [state, dispatch] = useReducer(queryReducer, defaultQueryReducerState)
+  const [state, dispatch] = useContext(QueryContext)
 
   useEffect(() => {
     const fetchData = async () => {
