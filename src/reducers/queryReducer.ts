@@ -33,4 +33,4 @@ const queryReducer = (
   }
 }
 
-export { defaultQueryReducerState, queryReducer }
+export { defaultQueryReducerState, queryReducer, type QueryReducerState }
