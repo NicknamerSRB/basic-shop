@@ -1,4 +1,4 @@
-import { jsonApi } from './jsonApi'
+import { jsonApi } from '@/services/jsonApi'
 
 const END_POINT = '/products'
 type ProductCategory =
