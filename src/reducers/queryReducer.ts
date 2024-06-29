@@ -1,15 +1,15 @@
-import { Product } from '@/services/products'
+import { Products } from '@/services/products'
 
 type QueryReducerState = {
   isLoading: boolean
   error: string
-  data: null | Product[]
+  data: null | Products[]
 }
 
 type Action =
   | { type: 'init' }
   | { type: 'error'; payload: string }
-  | { type: 'success'; payload: Product[] }
+  | { type: 'success'; payload: Products[] }
 
 const defaultQueryReducerState: QueryReducerState = {
   isLoading: false,
