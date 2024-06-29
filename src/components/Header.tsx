@@ -1,5 +1,5 @@
+import Cart from './Cart/Cart'
 import StyledLink from './ui/StyledLink'
-import ShoppingBag from '@/assets/ShoppingBag.svg?react'
 
 interface HeaderProps {
   type: 'cart' | 'noCart'
@@ -20,12 +20,7 @@ const Header = ({ type }: HeaderProps) => {
             <li>
               <StyledLink to="/console">Console</StyledLink>
             </li>
-            {type === 'cart' && (
-              <ShoppingBag
-                href="/cart"
-                className="absolute right-6 hover:bg-gray-400"
-              />
-            )}
+            {type === 'cart' && <Cart />}
           </ul>
         </nav>
       </div>
