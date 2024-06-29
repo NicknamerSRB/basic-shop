@@ -1,4 +1,4 @@
-import { jsonApi } from '@/services/jsonApi'
+import { Query, jsonApi } from '@/services/jsonApi'
 
 const END_POINT = '/products'
 type ProductCategory =
@@ -31,7 +31,7 @@ type ProductFeature =
   | 'Oversized frame'
   | 'Gradient lenses'
 
-export type Products = {
+export type Product = {
   availability: boolean
   category: ProductCategory
   color: ProductColor
@@ -44,6 +44,11 @@ export type Products = {
   stockQuantity: number
 }
 
-export const getProducts = (query?: string) => {
-  return jsonApi<Products[]>({ endpoint: END_POINT, query: query })
+export type GetAllProductsOptions = {
+  query?: Query & Partial<Product>
+}
+
+export const getProducts = (options?: GetAllProductsOptions) => {
+  const { query } = options || {}
+  return jsonApi<Product[]>({ endpoint: END_POINT, query: query })
 }

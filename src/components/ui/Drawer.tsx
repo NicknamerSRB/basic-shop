@@ -1,5 +1,7 @@
 import { ReactNode, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
+import Icon from './Icon'
+import Button from './Button'
 
 type Props = {
   trigger: ReactNode
@@ -51,6 +53,11 @@ function Drawer({
             )}
           >
             {header}
+            <div className="absolute right-2 top-2">
+              <Button onClick={toggleDrawer} aria-label="Close drawer">
+                <Icon name="Close" />
+              </Button>
+            </div>
           </div>
           <div
             className={twMerge('flex-1 overflow-y-auto p-4', contentClassName)}

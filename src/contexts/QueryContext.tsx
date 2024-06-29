@@ -3,13 +3,22 @@ import {
   defaultQueryReducerState,
   QueryReducerState,
 } from '@/reducers/queryReducer'
-import { Products, getProducts } from '@/services/products'
+import {
+  GetAllProductsOptions,
+  Product,
+  getProducts,
+} from '@/services/products'
 import { ReactNode, createContext, useReducer } from 'react'
 
 type QueryState = QueryReducerState & {
   fetch: (props?: {
-    options?: Parameters<typeof getProducts>[0]
-    onSuccess?: (data: Products[]) => void
+    options?: {
+      query: Pick<
+        Required<GetAllProductsOptions>['query'],
+        'availability' | 'name_like'
+      >
+    }
+    onSuccess?: (data: Product[]) => void
     onError?: (error: string) => void
   }) => Promise<void>
 }

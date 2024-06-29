@@ -1,11 +1,13 @@
 import Search from '@/assets/Search.svg?react'
 import ShopingBag from '@/assets/ShoppingBag.svg?react'
 import Add from '@/assets/Add.svg?react'
+import Close from '@/assets/Close.svg?react'
 
 const iconMap = {
   Search,
   ShopingBag,
   Add,
+  Close,
 }
 
 type IconName = keyof typeof iconMap
