@@ -12,7 +12,9 @@ type Props = {
   headerClassName?: string
   contentClassName?: string
   footerClassName?: string
-  variant?: 'headerD' | 'contentD' | 'footerD'
+  headerVariant?: 'headerD'
+  contentVariant?: 'contentD'
+  footerVariant?: 'footerD'
 }
 
 const variantStyles = {
@@ -31,7 +33,9 @@ function Drawer({
   headerClassName,
   contentClassName,
   footerClassName,
-  variant = 'headerD',
+  headerVariant = 'headerD',
+  contentVariant = 'contentD',
+  footerVariant = 'footerD',
 }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const { isMobile } = useScreen()
@@ -40,7 +44,9 @@ function Drawer({
     setIsOpen(!isOpen)
   }
 
-  const className = twMerge(variantStyles[variant])
+  const headerStyle = twMerge(variantStyles[headerVariant], headerClassName)
+  const contentStyle = twMerge(variantStyles[contentVariant], contentClassName)
+  const footerStyle = twMerge(variantStyles[footerVariant], footerClassName)
 
   const drawerClass =
     anchor === 'bottom' || isMobile
@@ -54,9 +60,9 @@ function Drawer({
       </div>
       {isOpen && (
         <div className={drawerClass}>
-          <div className={`${headerClassName} ${className}`}>{header}</div>
-          <div className={`${contentClassName} ${className}`}>{children}</div>
-          <div className={`${footerClassName} ${className}`}>{footer}</div>
+          <div className={headerStyle}>{header}</div>
+          <div className={contentStyle}>{children}</div>
+          <div className={footerStyle}>{footer}</div>
         </div>
       )}
     </div>
