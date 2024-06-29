@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useEffect, useState } from 'react'
 import { Product } from '@/services/products'
+import ls from '@/utils/ls'
 
 export type CartItemType = Product & {
   quantity: number
@@ -17,7 +18,9 @@ type CartContextType = {
 const CartContext = createContext<CartContextType>({} as CartContextType)
 
 const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cartItems, setCartItems] = useState<CartItemType[]>([])
+  const [cartItems, setCartItems] = useState<CartItemType[]>(() => {
+    return ls.get('cart-items') || []
+  })
   const [cartCount, setCartCount] = useState(0)
   const [cartTotal, setCartTotal] = useState(0)
 
@@ -31,6 +34,7 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
         0,
       ),
     )
+    ls.set('cart-items', cartItems)
   }, [cartItems])
 
   const handleAddItemToCart = (product: Product) => {

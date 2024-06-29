@@ -3,6 +3,7 @@ import { useQuery } from '@/hooks/useQuery'
 import { Products } from '@/services/products'
 import ProductsList from '../ProductsList/ProductsList'
 import Heading from '../ui/Heading'
+
 const Shop = () => {
   const query = useQuery()
   const [products, setProducts] = useState<Products[]>([])
