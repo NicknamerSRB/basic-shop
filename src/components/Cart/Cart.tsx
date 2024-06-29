@@ -8,7 +8,6 @@ import useScreen from '@/hooks/useScreen'
 const Cart = () => {
   const { cartTotal, cartItems } = useCart()
   const { isMobile } = useScreen()
-  console.log(cartItems)
   return (
     <Drawer
       trigger={<Button>Open Cart</Button>}

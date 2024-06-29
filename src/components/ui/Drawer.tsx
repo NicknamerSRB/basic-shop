@@ -1,5 +1,6 @@
 import { ReactNode, useState } from 'react'
 import useScreen from '@/hooks/useScreen'
+import { twMerge } from 'tailwind-merge'
 
 type Props = {
   trigger: ReactNode
@@ -11,6 +12,13 @@ type Props = {
   headerClassName?: string
   contentClassName?: string
   footerClassName?: string
+  variant?: 'headerD' | 'contentD' | 'footerD'
+}
+
+const variantStyles = {
+  headerD: 'border-b border-gray-300 bg-gray-100 p-4',
+  contentD: 'flex-1 overflow-y-auto p-4',
+  footerD: 'border-t border-gray-300 p-4',
 }
 
 function Drawer({
@@ -23,6 +31,7 @@ function Drawer({
   headerClassName,
   contentClassName,
   footerClassName,
+  variant = 'headerD',
 }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const { isMobile } = useScreen()
@@ -30,6 +39,8 @@ function Drawer({
   const toggleDrawer = () => {
     setIsOpen(!isOpen)
   }
+
+  const className = twMerge(variantStyles[variant])
 
   const drawerClass =
     anchor === 'bottom' || isMobile
@@ -43,17 +54,9 @@ function Drawer({
       </div>
       {isOpen && (
         <div className={drawerClass}>
-          <div
-            className={`${headerClassName} border-b border-gray-300 bg-gray-100 p-4`}
-          >
-            {header}
-          </div>
-          <div className={`${contentClassName} flex-1 overflow-y-auto p-4`}>
-            {children}
-          </div>
-          <div className={`${footerClassName} border-t border-gray-300 p-4`}>
-            {footer}
-          </div>
+          <div className={`${headerClassName} ${className}`}>{header}</div>
+          <div className={`${contentClassName} ${className}`}>{children}</div>
+          <div className={`${footerClassName} ${className}`}>{footer}</div>
         </div>
       )}
     </div>

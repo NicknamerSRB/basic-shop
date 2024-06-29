@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react'
 
+const breakpoints = {
+  lg: 1024,
+  sm: 768,
+}
+
 const useScreen = () => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768)
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= breakpoints.lg)
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > breakpoints.lg)
 
   const handleResize = () => {
-    setIsMobile(window.innerWidth <= 768)
-    setIsDesktop(window.innerWidth > 768)
+    setIsMobile(window.innerWidth <= breakpoints.sm)
+    setIsDesktop(window.innerWidth > breakpoints.sm)
   }
 
   useEffect(() => {

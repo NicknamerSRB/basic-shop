@@ -6,7 +6,7 @@ type Props = {
   cartItems: CartItemType[]
 }
 
-const CartList: React.FC<Props> = ({ cartItems }) => {
+const CartList = ({ cartItems }: Props) => {
   return (
     <ul>
       {cartItems.map((item) => (
