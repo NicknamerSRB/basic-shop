@@ -22,7 +22,7 @@ const Shop = () => {
   return (
     <div className="container mx-auto px-4">
       <Heading>Products</Heading>
-      <ProductsList product={products} />
+      <ProductsList products={products} />
     </div>
   )
 }

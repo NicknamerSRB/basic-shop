@@ -2,7 +2,7 @@ import { twMerge } from 'tailwind-merge'
 
 type Props = {
   children: React.ReactNode
-  variant?: 'lg' | 'md' | 'sm'
+  variant?: keyof typeof variantStyles
 }
 
 const variantStyles = {
