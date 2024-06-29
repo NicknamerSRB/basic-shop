@@ -31,7 +31,7 @@ type ProductFeature =
   | 'Oversized frame'
   | 'Gradient lenses'
 
-export type Product = {
+export type Products = {
   availability: boolean
   category: ProductCategory
   color: ProductColor
@@ -45,5 +45,5 @@ export type Product = {
 }
 
 export const getProducts = (query?: string) => {
-  return jsonApi<Product[]>({ endpoint: END_POINT, query: query })
+  return jsonApi<Products[]>({ endpoint: END_POINT, query: query })
 }

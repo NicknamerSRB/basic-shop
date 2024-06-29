@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from '@/hooks/useQuery'
-import { Product } from '@/services/products'
+import { Products } from '@/services/products'
 import ProductsList from '../ProductsList/ProductsList'
 import Heading from '../ui/Heading'
 
 const Shop = () => {
   const query = useQuery()
-  const [products, setProducts] = useState<Product[]>([])
+  const [products, setProducts] = useState<Products[]>([])
 
   useEffect(() => {
     query.fetch({
@@ -18,8 +18,6 @@ const Shop = () => {
       },
     })
   }, [])
-
-  console.log(products)
 
   return (
     <div className="container mx-auto px-4">

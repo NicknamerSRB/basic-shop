@@ -5,12 +5,14 @@ type Props = {
   variant?: 'lg' | 'md' | 'sm'
 }
 
+const variantStyles = {
+  lg: 'lg:text-lg font-bold',
+  md: 'text-sm',
+  sm: 'sm:text-xs font bold',
+}
+
 const paragraph = ({ children, variant = 'md' }: Props) => {
-  const className = twMerge(
-    'text-sm',
-    variant === 'lg' && 'lg:text-lg font-bold',
-    variant === 'sm' && 'sm:text-xs font bold',
-  )
+  const className = twMerge(variantStyles[variant])
 
   return <p className={className}>{children}</p>
 }

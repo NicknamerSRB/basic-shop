@@ -3,13 +3,13 @@ import {
   defaultQueryReducerState,
   QueryReducerState,
 } from '@/reducers/queryReducer'
-import { Product, getProducts } from '@/services/products'
+import { Products, getProducts } from '@/services/products'
 import { ReactNode, createContext, useReducer } from 'react'
 
 type QueryState = QueryReducerState & {
   fetch: (props?: {
     options?: Parameters<typeof getProducts>[0]
-    onSuccess?: (data: Product[]) => void
+    onSuccess?: (data: Products[]) => void
     onError?: (error: string) => void
   }) => Promise<void>
 }

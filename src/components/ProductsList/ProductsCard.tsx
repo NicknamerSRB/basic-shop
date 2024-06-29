@@ -1,10 +1,10 @@
-import { Product } from '@/services/products'
+import { Products } from '@/services/products'
 import Icon from '@/components/ui/Icon'
 import Button from '../ui/Button'
 import Paragraph from '../ui/Paragraph'
 
 type Props = {
-  product: Product
+  product: Products
 }
 
 const ProductsCard = ({ product }: Props) => {
