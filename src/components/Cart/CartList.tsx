@@ -1,12 +1,9 @@
-import { CartItemType } from '@/contexts/CartContext'
 import CartItem from './CartItem'
-// import { CartItem as CartItemType } from '@/reducers/cartReducer';
+import { useCart } from '@/hooks/useCart'
 
-type Props = {
-  cartItems: CartItemType[]
-}
+const CartList = () => {
+  const { cartItems } = useCart()
 
-const CartList = ({ cartItems }: Props) => {
   return (
     <ul>
       {cartItems.map((item) => (

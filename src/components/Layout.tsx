@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import Footer from './Footer'
 import Header from './Header'
-import Cart from './Cart/Cart'
 
 interface LayoutProps {
   type: 'cart' | 'noCart'
@@ -13,7 +12,6 @@ function Layout({ type }: LayoutProps) {
       <Header type={type} />
       <main className="mt-8 grow">
         <Outlet />
-        <Cart />
       </main>
       <Footer />
     </div>

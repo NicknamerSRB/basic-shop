@@ -7,7 +7,12 @@ type Props = {
 }
 
 const CartItem = ({ item }: Props) => {
-  const cart = useContext(CartContext)
+  const {
+    handleAddItemToCart,
+    handleRemoveItemFromCart,
+    handleDeleteItemFromCart,
+  } = useContext(CartContext)
+
   return (
     <li>
       <img src={item.image} alt={item.name} />
@@ -15,11 +20,9 @@ const CartItem = ({ item }: Props) => {
       <div>${item.price}</div>
       <div>Quantity: {item.quantity}</div>
       <div>Stock Quantity: {item.stockQuantity}</div>
-      <Button onClick={() => cart.handleAddItemToCart(item)}>+</Button>
-      <Button onClick={() => cart.handleRemoveItemFromCart(item.id)}>-</Button>
-      <Button onClick={() => cart.handleDeleteItemFromCart(item.id)}>
-        Delete
-      </Button>
+      <Button onClick={() => handleAddItemToCart(item)}>+</Button>
+      <Button onClick={() => handleRemoveItemFromCart(item.id)}>-</Button>
+      <Button onClick={() => handleDeleteItemFromCart(item.id)}>Delete</Button>
     </li>
   )
 }
