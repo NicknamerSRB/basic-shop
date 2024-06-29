@@ -17,11 +17,9 @@ type CartContextType = {
 
 const CartContext = createContext<CartContextType>({} as CartContextType)
 
-const CART_ITEMS_LS_KEY = 'cartItems'
-
 const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItemType[]>(() => {
-    return ls.get<CartItemType[]>(CART_ITEMS_LS_KEY) || []
+    return ls.get('cart-items') || []
   })
   const [cartCount, setCartCount] = useState(0)
   const [cartTotal, setCartTotal] = useState(0)
@@ -36,7 +34,7 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
         0,
       ),
     )
-    ls.set(CART_ITEMS_LS_KEY, cartItems)
+    ls.set('cart-items', cartItems)
   }, [cartItems])
 
   const handleAddItemToCart = (product: Product) => {
