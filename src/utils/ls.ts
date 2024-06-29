@@ -1,13 +1,15 @@
 import { CartItemType } from '@/contexts/CartContext'
 
-type LocalStorageMap = {
+type LSKeyValueMap = {
   'cart-items': CartItemType[]
 }
 
+type LSKey = keyof LSKeyValueMap
+
+type LSValue<T extends LSKey> = LSKeyValueMap[T]
+
 const ls = {
-  get: <T extends keyof LocalStorageMap>(
-    lsKey: T,
-  ): LocalStorageMap[T] | null => {
+  get: <T extends LSKey>(lsKey: T): LSValue<T> | null => {
     try {
       const storedValue = localStorage.getItem(lsKey)
       return storedValue ? JSON.parse(storedValue) : null
@@ -17,10 +19,7 @@ const ls = {
     }
   },
 
-  set: <T extends keyof LocalStorageMap>(
-    lsKey: T,
-    value: LocalStorageMap[T],
-  ): void => {
+  set: <T extends LSKey>(lsKey: T, value: LSValue<T>): void => {
     try {
       const valueString = JSON.stringify(value)
       localStorage.setItem(lsKey, valueString)
@@ -29,7 +28,7 @@ const ls = {
     }
   },
 
-  remove: (lsKey: keyof LocalStorageMap): void => {
+  remove: (lsKey: LSKey): void => {
     try {
       localStorage.removeItem(lsKey)
     } catch (error) {
