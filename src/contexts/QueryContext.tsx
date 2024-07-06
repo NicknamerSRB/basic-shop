@@ -21,6 +21,7 @@ type QueryState = QueryReducerState & {
     onSuccess?: (data: Product[]) => void
     onError?: (error: string) => void
   }) => Promise<void>
+  fetchConsoleProducts: () => Promise<void>
 }
 
 const QueryContext = createContext<QueryState>({} as QueryState)
@@ -46,6 +47,19 @@ const QueryContextProvider = ({ children }: Prop) => {
           payload: message,
         })
         onError?.(message)
+      }
+    },
+    fetchConsoleProducts: async () => {
+      try {
+        dispatch({ type: 'getConsoleProductsInit' })
+        const data = await getProducts()
+        dispatch({ type: 'getConsoleProductsSuccess', payload: data })
+      } catch (error) {
+        const { message } = error as Error
+        dispatch({
+          type: 'getConsoleProductsError',
+          payload: message,
+        })
       }
     },
   }

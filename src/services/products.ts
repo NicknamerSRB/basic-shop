@@ -1,6 +1,7 @@
 import { Query, jsonApi } from '@/services/jsonApi'
 
 const END_POINT = '/products'
+
 type ProductCategory =
   | 'Shoes'
   | 'Clothing'
@@ -42,6 +43,28 @@ export type Product = {
   name: string
   price: number
   stockQuantity: number
+}
+
+export const updateProductAvailability = async (
+  productId: string,
+  availability: boolean,
+) => {
+  try {
+    const response = await jsonApi({
+      endpoint: `${END_POINT}/${productId}`,
+      init: {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ availability }),
+      },
+    })
+
+    return response
+  } catch (error) {
+    throw new Error('Failed to update product availability')
+  }
 }
 
 export type GetAllProductsOptions = {

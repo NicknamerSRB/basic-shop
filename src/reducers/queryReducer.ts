@@ -10,6 +10,9 @@ type Action =
   | { type: 'init' }
   | { type: 'error'; payload: string }
   | { type: 'success'; payload: Product[] }
+  | { type: 'getConsoleProductsInit' }
+  | { type: 'getConsoleProductsSuccess'; payload: Product[] }
+  | { type: 'getConsoleProductsError'; payload: string }
 
 const defaultQueryReducerState: QueryReducerState = {
   isLoading: false,
@@ -27,6 +30,12 @@ const queryReducer = (
     case 'error':
       return { isLoading: false, error: action.payload, data: null }
     case 'success':
+      return { isLoading: false, error: '', data: action.payload }
+    case 'getConsoleProductsInit':
+      return { isLoading: true, error: '', data: null }
+    case 'getConsoleProductsError':
+      return { isLoading: false, error: '', data: null }
+    case 'getConsoleProductsSuccess':
       return { isLoading: false, error: '', data: action.payload }
     default:
       return state
