@@ -20,10 +20,7 @@ const Shop = () => {
         query: { name_like: searchedProduct, availability: true },
       },
       onSuccess: (products) => {
-        const availableProducts = products.filter(
-          (product) => product.availability,
-        )
-        setProducts(availableProducts)
+        setProducts(products)
       },
     })
   }, [searchedProduct])
