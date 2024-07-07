@@ -7,6 +7,7 @@ import DropdownMenu from '../ui/DropdownMenu'
 import Button from '../ui/Button'
 import { useQueryContext } from '@/hooks/useQueryContext'
 import TextField from '../ui/TextField'
+import Dialog from '../ui/Dialog'
 
 const tableConfig: TableConfig<Product> = [
   { label: 'Product Name', field: 'name' },
@@ -52,6 +53,7 @@ const tableConfig: TableConfig<Product> = [
 const ConsolePage = () => {
   const { getConsoleProductsQuery } = useQueryContext()
   const [searchQuery, setSearchQuery] = useState('')
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   useEffect(() => {
     getConsoleProductsQuery.fetch({
