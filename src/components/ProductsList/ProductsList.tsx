@@ -1,8 +1,8 @@
-import { Products } from '@/services/products'
+import { Product } from '@/services/products'
 import ProductsCard from './ProductsCard'
 
 type Props = {
-  products: Products[]
+  products: Product[]
 }
 
 const ProductsList = ({ products }: Props) => {

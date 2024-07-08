@@ -1,4 +1,4 @@
-import { Products } from '@/services/products'
+import { Product } from '@/services/products'
 import Icon from '@/components/ui/Icon'
 import Button from '../ui/Button'
 import Paragraph from '../ui/Paragraph'
@@ -6,7 +6,7 @@ import { useContext } from 'react'
 import { CartContext } from '@/contexts/CartContext'
 
 type Props = {
-  product: Products
+  product: Product
 }
 
 const ProductsCard = ({ product }: Props) => {
