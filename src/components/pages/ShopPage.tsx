@@ -1,28 +1,23 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { useQuery } from '@/hooks/useQuery'
-import { Product } from '@/services/products'
 import ProductsList from '../ProductsList/ProductsList'
 import Heading from '../ui/Heading'
 import Icon from '@/components/ui/Icon'
 
 const Shop = () => {
   const query = useQuery()
-  const [products, setProducts] = useState<Product[]>([])
   const [searchedProduct, setSearchedProduct] = useState('')
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchedProduct(event.target.value)
   }
-
   useEffect(() => {
     query.fetch({
       options: {
         query: { name_like: searchedProduct, availability: true },
       },
-      onSuccess: (products) => {
-        setProducts(products)
-      },
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchedProduct])
 
   return (
@@ -40,7 +35,7 @@ const Shop = () => {
           className="flex-1 rounded-r-md border border-gray-300 p-2"
         />
       </div>
-      <ProductsList products={products} />
+      <ProductsList products={query.data || []} />
     </div>
   )
 }
