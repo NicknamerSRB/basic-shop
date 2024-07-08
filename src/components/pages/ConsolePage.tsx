@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 import Heading from '../ui/Heading'
 import Table, { TableConfig } from '../ui/Table'
-import { useQuery } from '@/hooks/useQuery'
 import { Product } from '@/services/products'
 import Checkbox from '../ui/Checkbox'
 import DropdownMenu from '../ui/DropdownMenu'
 import Button from '../ui/Button'
+import { useQueryContext } from '@/hooks/useQueryContext'
 
 const tableConfig: TableConfig<Product> = [
   { label: 'Product Name', field: 'name' },
@@ -49,10 +49,10 @@ const tableConfig: TableConfig<Product> = [
 ]
 
 const ConsolePage = () => {
-  const { data, error, isLoading, fetchConsoleProducts } = useQuery()
+  const { getConsoleProductsQuery } = useQueryContext()
 
   useEffect(() => {
-    fetchConsoleProducts()
+    getConsoleProductsQuery.fetch({})
   }, [])
 
   // const handleCheckboxChange = async (
@@ -70,14 +70,12 @@ const ConsolePage = () => {
   return (
     <div>
       <Heading>Console Page</Heading>
-      {data && (
-        <Table
-          data={data}
-          tableConfig={tableConfig}
-          error={error}
-          isLoading={isLoading}
-        />
-      )}
+      <Table
+        data={getConsoleProductsQuery.data}
+        tableConfig={tableConfig}
+        error={getConsoleProductsQuery.error}
+        isLoading={getConsoleProductsQuery.isLoading}
+      />
     </div>
   )
 }
