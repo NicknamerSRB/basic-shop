@@ -67,11 +67,11 @@ export type Product = {
 //   }
 // }
 
-export type GetAllProductsOptions = {
+export type GetProductsOptions = {
   query?: Query & Partial<Product>
 }
 
-export const getProducts = (options?: GetAllProductsOptions) => {
+export const getProducts = (options?: GetProductsOptions) => {
   const { query } = options || {}
   return jsonApi<Product[]>({ endpoint: END_POINT, query: query })
 }
