@@ -1,3 +1,4 @@
+import { useId } from 'react'
 import BasicInput from './BasicInput'
 import BasicLabel from './BasicLabel'
 
@@ -9,10 +10,16 @@ type Props = {
 }
 
 const TextField = ({ label, value, onChange, placeholder }: Props) => {
+  const id = useId()
   return (
     <div className="mb-4">
-      <BasicLabel>{label}</BasicLabel>
-      <BasicInput value={value} onChange={onChange} placeholder={placeholder} />
+      <BasicLabel htmlFor={id}>{label}</BasicLabel>
+      <BasicInput
+        id={label && id}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+      />
     </div>
   )
 }
