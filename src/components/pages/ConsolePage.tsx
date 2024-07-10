@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Heading from '../ui/Heading'
 import Table, { TableConfig } from '../ui/Table'
 import { Product } from '@/services/products'
@@ -6,6 +6,7 @@ import Checkbox from '../ui/Checkbox'
 import DropdownMenu from '../ui/DropdownMenu'
 import Button from '../ui/Button'
 import { useQueryContext } from '@/hooks/useQueryContext'
+import TextField from '../ui/TextField'
 
 const tableConfig: TableConfig<Product> = [
   { label: 'Product Name', field: 'name' },
@@ -50,26 +51,24 @@ const tableConfig: TableConfig<Product> = [
 
 const ConsolePage = () => {
   const { getConsoleProductsQuery } = useQueryContext()
+  const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
-    getConsoleProductsQuery.fetch({})
-  }, [])
-
-  // const handleCheckboxChange = async (
-  //   productId: string,
-  //   currentAvailability: boolean,
-  // ) => {
-  //   try {
-  //     await updateProductAvailability(productId, !currentAvailability)
-  //     fetchConsoleProducts()
-  //   } catch (error) {
-  //     console.error('Failed to update product availability:', error)
-  //   }
-  // }
+    getConsoleProductsQuery.fetch({
+      query: { name_like: searchQuery },
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery])
 
   return (
     <div>
       <Heading>Console Page</Heading>
+      <TextField
+        label="Search Products"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        placeholder="Enter product name"
+      />
       <Table
         data={getConsoleProductsQuery.data}
         tableConfig={tableConfig}
