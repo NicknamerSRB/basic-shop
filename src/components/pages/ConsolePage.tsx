@@ -55,7 +55,7 @@ const ConsolePage = () => {
 
   useEffect(() => {
     getConsoleProductsQuery.fetch({
-      query: { name_like: searchQuery, availability: true },
+      query: { name_like: searchQuery },
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery])
