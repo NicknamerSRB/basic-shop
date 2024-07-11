@@ -53,7 +53,6 @@ const tableConfig: TableConfig<Product> = [
 const ConsolePage = () => {
   const { getConsoleProductsQuery } = useQueryContext()
   const [searchQuery, setSearchQuery] = useState('')
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   useEffect(() => {
     getConsoleProductsQuery.fetch({
@@ -71,6 +70,9 @@ const ConsolePage = () => {
         onChange={(e) => setSearchQuery(e.target.value)}
         placeholder="Enter product name"
       />
+      <Dialog triggerLabel="Add">
+        <Heading>Add New Product</Heading>
+      </Dialog>
       <Table
         data={getConsoleProductsQuery.data}
         tableConfig={tableConfig}
