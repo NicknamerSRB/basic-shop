@@ -7,6 +7,7 @@ import DropdownMenu from '../ui/DropdownMenu'
 import Button from '../ui/Button'
 import { useQueryContext } from '@/hooks/useQueryContext'
 import TextField from '../ui/TextField'
+import Dialog from '../ui/Dialog'
 
 const tableConfig: TableConfig<Product> = [
   { label: 'Product Name', field: 'name' },
@@ -69,6 +70,9 @@ const ConsolePage = () => {
         onChange={(e) => setSearchQuery(e.target.value)}
         placeholder="Enter product name"
       />
+      <Dialog triggerLabel="Add">
+        <Heading>Add New Product</Heading>
+      </Dialog>
       <Table
         data={getConsoleProductsQuery.data}
         tableConfig={tableConfig}
