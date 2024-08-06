@@ -1,21 +1,22 @@
-type Props = {
-  value: string
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  placeholder?: string
+import { InputHTMLAttributes, forwardRef } from 'react'
+
+interface BasicInputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string
+  error?: string
 }
 
-function BasicInput({ value, onChange, placeholder, id }: Props) {
-  return (
-    <input
-      type="text"
-      id={id}
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-      className="w-full rounded border border-gray-300 p-2"
-    />
-  )
-}
+const BasicInput = forwardRef<HTMLInputElement, BasicInputProps>(
+  (props, ref) => {
+    const { id, error, ...rest } = props
+    return (
+      <input
+        id={id}
+        ref={ref}
+        className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${error ? 'border-red-500' : ''}`}
+        {...rest}
+      />
+    )
+  },
+)
 
 export default BasicInput

@@ -1,27 +1,30 @@
+import { forwardRef, InputHTMLAttributes } from 'react'
 import { useId } from 'react'
+import BasicError from './BasicError'
+import BasicLabel from './BasicLabel'
 
-type Props = {
-  checked?: boolean
-  defaultChecked?: boolean
-  onChange: () => void
-  label?: string
+interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
+  label: string
+  error?: string
 }
 
-const Checkbox = ({ label, ...props }: Props) => {
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, ref) => {
+  const { label, required, error, ...rest } = props
   const id = useId()
   return (
-    <div className="flex items-center">
+    <div>
       <input
-        id={id}
         type="checkbox"
-        {...props}
-        className="form-checkbox h-5 w-5 text-blue-600"
+        id={id}
+        ref={ref}
+        className={`mt-1 block rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${error ? 'border-red-500' : ''}`}
+        required={required}
+        {...rest}
       />
-      <label htmlFor={id} className="ml-2 text-gray-700">
-        {label}
-      </label>
+      <BasicLabel id={id} label={label} required={required} />
+      <BasicError error={error} />
     </div>
   )
-}
+})
 
 export default Checkbox

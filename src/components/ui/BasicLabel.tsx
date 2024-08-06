@@ -1,12 +1,13 @@
 type Props = {
-  children: React.ReactNode
-  htmlFor: string
+  id: string
+  label: string
+  required?: boolean
 }
 
-const BasicLabel = ({ children, htmlFor }: Props) => {
+const BasicLabel = ({ id, label, required }: Props) => {
   return (
-    <label htmlFor={htmlFor} className="mb-2 block text-sm font-bold">
-      {children}
+    <label htmlFor={id} className="block text-sm font-medium text-gray-700">
+      {label} {required && <span className="text-red-500">*</span>}
     </label>
   )
 }

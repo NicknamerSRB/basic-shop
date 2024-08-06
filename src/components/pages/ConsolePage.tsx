@@ -8,6 +8,7 @@ import Button from '../ui/Button'
 import { useQueryContext } from '@/hooks/useQueryContext'
 import TextField from '../ui/TextField'
 import Dialog from '../ui/Dialog'
+import AddProductForm from '../Forms/AddProductForm'
 
 const tableConfig: TableConfig<Product> = [
   { label: 'Product Name', field: 'name' },
@@ -19,6 +20,7 @@ const tableConfig: TableConfig<Product> = [
     label: 'Availability',
     component: ({ data }) => (
       <Checkbox
+        label="Availability"
         defaultChecked={data.availability}
         onChange={() => {
           // TO DO
@@ -72,6 +74,7 @@ const ConsolePage = () => {
       />
       <Dialog triggerLabel="Add">
         <Heading>Add New Product</Heading>
+        <AddProductForm />
       </Dialog>
       <Table
         data={getConsoleProductsQuery.data}
