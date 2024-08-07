@@ -22,6 +22,7 @@ type JsonApiProps = {
   query?: Query
   baseurl?: string
 }
+
 const jsonApi = async <JsonApiResponse>({
   endpoint,
   init,
@@ -35,6 +36,31 @@ const jsonApi = async <JsonApiResponse>({
     )
     const data = await response.json()
     return data
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}
+
+export type AddProductOptions = {
+  name: string
+  description: string
+  price: number
+  category: string
+  isAvailable: boolean
+}
+
+export const addProduct = async (options: AddProductOptions): Promise<void> => {
+  try {
+    await jsonApi<void>({
+      endpoint: '/products',
+      init: {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(options),
+      },
+    })
   } catch (error) {
     return Promise.reject(error)
   }

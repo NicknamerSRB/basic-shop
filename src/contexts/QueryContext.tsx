@@ -1,5 +1,6 @@
 import useQuery, { QueryResult } from '@/hooks/useQuery'
 import { GetProductsOptions, Product, getProducts } from '@/services/products'
+import { addProduct, AddProductOptions } from '@/services/jsonApi'
 import { ReactNode, createContext } from 'react'
 
 type QueryContextValue = {
@@ -8,6 +9,7 @@ type QueryContextValue = {
     GetProductsOptions | undefined,
     Product[]
   >
+  addProductQuery: QueryResult<AddProductOptions, void>
 }
 
 export const QueryContext = createContext<QueryContextValue>(
@@ -19,14 +21,14 @@ type Props = {
 }
 
 export const QueryContextProvider = ({ children }: Props) => {
-  const getShopProductsQuery = useQuery({
-    fn: getProducts,
-  })
+  const getShopProductsQuery = useQuery({ fn: getProducts })
   const getConsoleProductsQuery = useQuery({ fn: getProducts })
+  const addProductQuery = useQuery({ fn: addProduct })
 
   const value = {
     getShopProductsQuery,
     getConsoleProductsQuery,
+    addProductQuery,
   }
 
   return <QueryContext.Provider value={value}>{children}</QueryContext.Provider>

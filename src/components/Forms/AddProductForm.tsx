@@ -8,6 +8,7 @@ import RadioGroup from '../ui/RadioGroup'
 import { getInputOptions } from '@/utils/array'
 import { productCategories, productColors } from '@/services/products'
 import Select from '../ui/Select'
+import { useQueryContext } from '@/hooks/useQueryContext'
 
 const defaultFormValues = {
   availability: false,
@@ -24,11 +25,24 @@ const categoryOptions = getInputOptions(productCategories)
 const colorOptions = getInputOptions(productColors)
 
 const AddProductForm = () => {
+  const { addProductQuery } = useQueryContext()
   const [formValues, setFormValues] = useState(defaultFormValues)
 
-  const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    //TODO
+    try {
+      await addProductQuery.fetch({
+        name: formValues.name,
+        description: formValues.description,
+        price: formValues.price,
+        category: formValues.category,
+        isAvailable: formValues.availability,
+      })
+      console.log('Product added successfully')
+      handleClearForm()
+    } catch (error) {
+      console.error('Error adding product:', error)
+    }
     console.log(formValues)
   }
 
