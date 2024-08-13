@@ -3,12 +3,12 @@ import { useId } from 'react'
 import BasicError from './BasicError'
 import BasicLabel from './BasicLabel'
 
-interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
+type Props = SelectHTMLAttributes<HTMLSelectElement> & {
   label: string
   error?: string
 }
 
-const Select = forwardRef<HTMLSelectElement, SelectProps>((props, ref) => {
+const Select = forwardRef<HTMLSelectElement, Props>((props, ref) => {
   const { label, required, error, ...rest } = props
   const id = useId()
   return (

@@ -3,12 +3,12 @@ import { useId } from 'react'
 import BasicError from './BasicError'
 import BasicLabel from './BasicLabel'
 
-interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
+type Props = InputHTMLAttributes<HTMLInputElement> & {
   label: string
   error?: string
 }
 
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, ref) => {
+const Checkbox = forwardRef<HTMLInputElement, Props>((props, ref) => {
   const { label, required, error, ...rest } = props
   const id = useId()
   return (

@@ -4,12 +4,12 @@ import BasicError from './BasicError'
 import BasicLabel from './BasicLabel'
 import BasicInput from './BasicInput'
 
-interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
+type Props = InputHTMLAttributes<HTMLInputElement> & {
   label: string
   error?: string
 }
 
-const TextInput = forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
+const TextInput = forwardRef<HTMLInputElement, Props>((props, ref) => {
   const { label, required, error, ...rest } = props
   const id = useId()
   return (
