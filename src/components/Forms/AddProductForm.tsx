@@ -30,20 +30,18 @@ const AddProductForm = () => {
 
   const handleSubmitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    try {
-      await addProductQuery.fetch({
-        name: formValues.name,
-        description: formValues.description,
-        price: formValues.price,
-        category: formValues.category,
-        isAvailable: formValues.availability,
-      })
-      console.log('Product added successfully')
-      handleClearForm()
-    } catch (error) {
-      console.error('Error adding product:', error)
-    }
-    console.log(formValues)
+    addProductQuery.fetch(
+      { payload: formValues },
+      {
+        onSuccess: () => {
+          console.log('Product added successfully')
+          handleClearForm()
+        },
+        onError: () => {
+          console.log('Failed to add productS')
+        },
+      },
+    )
   }
 
   const handleClearForm = () => {

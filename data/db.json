@@ -215,6 +215,25 @@
       "name": "Striped Canvas Tote",
       "price": 49.99,
       "stockQuantity": 60
+    },
+    {
+      "name": "Black Shoe",
+      "description": "",
+      "price": "79.99",
+      "category": "Shoes",
+      "isAvailable": true,
+      "id": "pMrAazY"
+    },
+    {
+      "availability": true,
+      "category": "Shoes",
+      "color": "Red",
+      "description": "",
+      "image": "dasdas",
+      "name": "RedShoes",
+      "price": "80",
+      "stockQuantity": "10",
+      "id": "lCnzJIb"
     }
   ]
 }

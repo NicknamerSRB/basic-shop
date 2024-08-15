@@ -9,7 +9,7 @@ type QueryContextValue = {
     GetProductsOptions | undefined,
     Product[]
   >
-  addProductQuery: QueryResult<AddProductOptions, void>
+  addProductQuery: QueryResult<AddProductOptions, Product>
 }
 
 export const QueryContext = createContext<QueryContextValue>(

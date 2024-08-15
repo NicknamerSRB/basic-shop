@@ -1,3 +1,5 @@
+import { Product } from './products'
+
 const BASE_URL = 'http://localhost:3000'
 
 const getQueryParams = (query?: Query) => {
@@ -42,28 +44,30 @@ const jsonApi = async <JsonApiResponse>({
 }
 
 export type AddProductOptions = {
-  name: string
-  description: string
-  price: number
-  category: string
-  isAvailable: boolean
+  payload: {
+    availability: boolean
+    category: string
+    color: string
+    description?: string
+    image: string
+    name: string
+    price: number
+    stockQuantity: number
+  }
 }
 
-export const addProduct = async (options: AddProductOptions): Promise<void> => {
-  try {
-    await jsonApi<void>({
-      endpoint: '/products',
-      init: {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(options),
+export const addProduct = (options: AddProductOptions) => {
+  const { payload } = options
+  return jsonApi<Product>({
+    endpoint: '/products',
+    init: {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    })
-  } catch (error) {
-    return Promise.reject(error)
-  }
+      body: JSON.stringify(payload),
+    },
+  })
 }
 
 export { jsonApi }
