@@ -1,3 +1,5 @@
+import { Product } from './products'
+
 const BASE_URL = 'http://localhost:3000'
 
 const getQueryParams = (query?: Query) => {
@@ -22,6 +24,7 @@ type JsonApiProps = {
   query?: Query
   baseurl?: string
 }
+
 const jsonApi = async <JsonApiResponse>({
   endpoint,
   init,
@@ -38,6 +41,33 @@ const jsonApi = async <JsonApiResponse>({
   } catch (error) {
     return Promise.reject(error)
   }
+}
+
+export type AddProductOptions = {
+  payload: {
+    availability: boolean
+    category: string
+    color: string
+    description?: string
+    image: string
+    name: string
+    price: number
+    stockQuantity: number
+  }
+}
+
+export const addProduct = (options: AddProductOptions) => {
+  const { payload } = options
+  return jsonApi<Product>({
+    endpoint: '/products',
+    init: {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    },
+  })
 }
 
 export { jsonApi }
