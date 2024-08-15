@@ -117,8 +117,10 @@ const AddProductForm = () => {
         />
       </div>
       <div className="mt-4 flex items-center justify-end gap-4">
-        <Button>Add</Button>
-        <Button onClick={handleClearForm}>Clear</Button>
+        <Button type="submit">Add</Button>
+        <Button type="button" onClick={handleClearForm}>
+          Clear
+        </Button>
       </div>
     </form>
   )
