@@ -1,16 +1,9 @@
 type Props = {
-  message: string
+  error?: string
 }
 
-const BasicError = ({ message }: Props) => {
-  return (
-    <div
-      className="mb-4 rounded-lg bg-red-100 p-4 text-sm text-red-700"
-      role="alert"
-    >
-      {message}
-    </div>
-  )
+const BasicError = ({ error }: Props) => {
+  return error ? <div className="text-red-600">{error}</div> : null
 }
 
 export default BasicError
