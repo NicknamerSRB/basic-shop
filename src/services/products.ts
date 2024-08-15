@@ -12,6 +12,17 @@ type ProductCategory =
   | 'Jewelry'
   | 'Bags'
 
+export const productCategories: ProductCategory[] = [
+  'Shoes',
+  'Clothing',
+  'Pants',
+  'Accessories',
+  'Hats',
+  'Eyewear',
+  'Jewelry',
+  'Bags',
+]
+
 type ProductColor =
   | 'Black'
   | 'Gray'
@@ -21,6 +32,17 @@ type ProductColor =
   | 'Tortoiseshell'
   | 'Navy'
   | 'Gold'
+
+export const productColors: ProductColor[] = [
+  'Black',
+  'Gray',
+  'Blue',
+  'Brown',
+  'Red',
+  'Tortoiseshell',
+  'Navy',
+  'Gold',
+]
 
 type ProductFeature =
   | 'Breathable mesh'

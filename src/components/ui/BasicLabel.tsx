@@ -1,5 +1,5 @@
 type Props = {
-  id: string
+  id?: string
   label: string
   required?: boolean
 }

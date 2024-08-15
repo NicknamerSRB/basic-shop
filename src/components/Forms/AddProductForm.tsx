@@ -4,6 +4,10 @@ import Checkbox from '../ui/Checkbox'
 import NumberInput from '../ui/NumberInput'
 import TextArea from '../ui/TextArea'
 import TextInput from '../ui/TextInput'
+import RadioGroup from '../ui/RadioGroup'
+import { getInputOptions } from '@/utils/array'
+import { productCategories, productColors } from '@/services/products'
+import Select from '../ui/Select'
 
 const defaultFormValues = {
   availability: false,
@@ -15,6 +19,9 @@ const defaultFormValues = {
   price: 0,
   stockQuantity: 0,
 }
+
+const categoryOptions = getInputOptions(productCategories)
+const colorOptions = getInputOptions(productColors)
 
 const AddProductForm = () => {
   const [formValues, setFormValues] = useState(defaultFormValues)
@@ -86,21 +93,21 @@ const AddProductForm = () => {
             onChange={handleChangeForm}
           />
         </div>
-        <TextInput
+        <RadioGroup
           label="Category"
-          placeholder="Product category"
-          required
           name="category"
-          value={formValues.category}
           onChange={handleChangeForm}
-        />
-        <TextInput
-          label="Colors"
-          placeholder="Product color"
+          options={categoryOptions}
           required
+        />
+
+        <Select
+          label="Colors"
           name="color"
+          options={colorOptions}
           value={formValues.color}
           onChange={handleChangeForm}
+          required
         />
         <Checkbox
           label="Is Available"
