@@ -1,4 +1,3 @@
-import { ChangeEvent, FormEvent, useState } from 'react'
 import Button from '../ui/Button'
 import Checkbox from '../ui/Checkbox'
 import NumberInput from '../ui/NumberInput'
@@ -6,11 +5,29 @@ import TextArea from '../ui/TextArea'
 import TextInput from '../ui/TextInput'
 import RadioGroup from '../ui/RadioGroup'
 import { getInputOptions } from '@/utils/array'
-import { productCategories, productColors } from '@/services/products'
+import {
+  AddProductOptions,
+  productCategories,
+  productColors,
+} from '@/services/products'
 import Select from '../ui/Select'
 import { useQueryContext } from '@/hooks/useQueryContext'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form'
+import { boolean, number, object, string } from 'yup'
 
-const defaultFormValues = {
+const schema = object({
+  availability: boolean().required(),
+  category: string().required(),
+  color: string().required(),
+  description: string(),
+  image: string().required(),
+  name: string().required(),
+  price: number().min(1).required(),
+  stockQuantity: number().min(1).required(),
+})
+
+const defaultValues = {
   availability: false,
   category: '',
   color: '',
@@ -21,69 +38,68 @@ const defaultFormValues = {
   stockQuantity: 0,
 }
 
+type FormValues = AddProductOptions['payload']
 const categoryOptions = getInputOptions(productCategories)
 const colorOptions = getInputOptions(productColors)
 
 const AddProductForm = () => {
-  const { addProductQuery } = useQueryContext()
-  const [formValues, setFormValues] = useState(defaultFormValues)
+  const { addProductQuery, getConsoleProductsQuery } = useQueryContext()
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: yupResolver(schema),
+    defaultValues,
+  })
 
-  const handleSubmitForm = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const onValid = (formValues: FormValues) => {
     addProductQuery.fetch(
       { payload: formValues },
       {
-        onSuccess: () => {
-          console.log('Product added successfully')
-          handleClearForm()
+        onSuccess: (addedProduct) => {
+          getConsoleProductsQuery.update((products) =>
+            products ? [...products, addedProduct] : [addedProduct],
+          )
+          reset(defaultValues)
+          console.log('Successfully added product ${addedProduct.name}')
         },
         onError: () => {
-          console.log('Failed to add productS')
+          console.log('Failed to add product')
         },
       },
     )
   }
 
   const handleClearForm = () => {
-    setFormValues(defaultFormValues)
-  }
-
-  const handleChangeForm = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
-  ) => {
-    const { name, value, type } = e.target
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]:
-        type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
-    }))
+    reset(defaultValues)
   }
 
   return (
-    <form className="p-4" onSubmit={handleSubmitForm}>
+    <form className="p-4" onSubmit={handleSubmit(onValid)}>
       <div className="flex flex-col gap-2">
         <TextInput
           label="Name"
           placeholder="Product name"
           required
-          name="name"
-          value={formValues.name}
-          onChange={handleChangeForm}
+          {...register('name')}
+          error={errors.description?.message}
+          disabled={addProductQuery.isLoading}
         />
         <TextArea
           label="Description"
           placeholder="Product description"
-          name="description"
-          value={formValues.description}
-          onChange={handleChangeForm}
+          {...register('description')}
+          disabled={addProductQuery.isLoading}
         />
         <TextInput
           label="Image url"
           placeholder="https://example.com"
           required
-          name="image"
-          value={formValues.image}
-          onChange={handleChangeForm}
+          {...register('image')}
+          error={errors.description?.message}
+          disabled={addProductQuery.isLoading}
         />
         <div className="gap-4 lg:flex">
           <NumberInput
@@ -91,46 +107,54 @@ const AddProductForm = () => {
             label="Price"
             placeholder="1234"
             required
-            name="price"
-            value={formValues.price}
-            onChange={handleChangeForm}
+            {...register('price')}
+            error={errors.description?.message}
+            disabled={addProductQuery.isLoading}
           />
           <NumberInput
             className="lg:w-1/2"
             label="Stock Quantity"
             placeholder="1234"
             required
-            name="stockQuantity"
-            value={formValues.stockQuantity}
-            onChange={handleChangeForm}
+            {...register('stockQuantity')}
+            error={errors.description?.message}
+            disabled={addProductQuery.isLoading}
           />
+          s
         </div>
         <RadioGroup
           label="Category"
-          name="category"
-          onChange={handleChangeForm}
           options={categoryOptions}
+          {...register('category')}
+          error={errors.description?.message}
+          disabled={addProductQuery.isLoading}
           required
         />
 
         <Select
           label="Colors"
-          name="color"
           options={colorOptions}
-          value={formValues.color}
-          onChange={handleChangeForm}
+          {...register('color')}
+          error={errors.description?.message}
+          disabled={addProductQuery.isLoading}
           required
         />
         <Checkbox
           label="Is Available"
-          name="availability"
-          checked={formValues.availability}
-          onChange={handleChangeForm}
+          {...register('availability')}
+          error={errors.description?.message}
+          disabled={addProductQuery.isLoading}
         />
       </div>
       <div className="mt-4 flex items-center justify-end gap-4">
-        <Button type="submit">Add</Button>
-        <Button type="button" onClick={handleClearForm}>
+        <Button type="submit" disabled={addProductQuery.isLoading}>
+          Add
+        </Button>
+        <Button
+          type="button"
+          onClick={handleClearForm}
+          disabled={addProductQuery.isLoading}
+        >
           Clear
         </Button>
       </div>

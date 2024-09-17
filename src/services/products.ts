@@ -67,6 +67,19 @@ export type Product = {
   stockQuantity: number
 }
 
+export type AddProductOptions = {
+  payload: {
+    availability: boolean
+    category: string
+    color: string
+    description?: string
+    image: string
+    name: string
+    price: number
+    stockQuantity: number
+  }
+}
+
 export type GetProductsOptions = {
   query?: Query & Partial<Product>
 }
