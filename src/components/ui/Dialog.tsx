@@ -5,13 +5,25 @@ import Button from '../ui/Button'
 type Props = {
   triggerLabel: string
   children: React.ReactNode
+  onOpen?: () => void
+  onClose?: () => void
 }
 
-const Dialog = ({ triggerLabel, children }: Props) => {
+const Dialog = ({ triggerLabel, children, onOpen, onClose }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
+
+  const handleOpen = () => {
+    setIsOpen(true)
+    if (onOpen) {
+      onOpen()
+    }
+  }
 
   const handleClose = () => {
     setIsOpen(false)
+    if (onClose) {
+      onClose()
+    }
   }
 
   const handleContentClick = (e: React.MouseEvent) => {
@@ -20,7 +32,7 @@ const Dialog = ({ triggerLabel, children }: Props) => {
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>{triggerLabel}</Button>
+      <Button onClick={handleOpen}>{triggerLabel}</Button>
       {isOpen &&
         createPortal(
           <div

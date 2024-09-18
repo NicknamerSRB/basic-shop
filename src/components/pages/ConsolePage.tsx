@@ -9,52 +9,55 @@ import { useQueryContext } from '@/hooks/useQueryContext'
 import TextField from '../ui/TextField'
 import Dialog from '../ui/Dialog'
 import AddProductForm from '../Forms/AddProductForm'
-
-const tableConfig: TableConfig<Product> = [
-  { label: 'Product Name', field: 'name' },
-  { label: 'Category', field: 'category' },
-  { label: 'Color', field: 'color' },
-  { label: 'Price', field: 'price' },
-  { label: 'Quantity', field: 'stockQuantity' },
-  {
-    label: 'Availability',
-    component: ({ data }) => (
-      <Checkbox
-        label="Availability"
-        defaultChecked={data.availability}
-        onChange={() => {
-          // TO DO
-        }}
-      />
-    ),
-  },
-
-  {
-    label: 'Actions',
-    component: () => (
-      <DropdownMenu trigger="Actions">
-        <Button
-          onClick={() => {
-            // TO DO
-          }}
-        >
-          Edit
-        </Button>
-        <Button
-          onClick={() => {
-            // TO DO
-          }}
-        >
-          Delete
-        </Button>
-      </DropdownMenu>
-    ),
-  },
-]
+import EditProductForm from '../Forms/EditProductForm'
 
 const ConsolePage = () => {
   const { getConsoleProductsQuery } = useQueryContext()
   const [searchQuery, setSearchQuery] = useState('')
+  const [productToEdit, setProductToEdit] = useState<Product | null>(null)
+
+  const tableConfig: TableConfig<Product> = [
+    { label: 'Product Name', field: 'name' },
+    { label: 'Category', field: 'category' },
+    { label: 'Color', field: 'color' },
+    { label: 'Price', field: 'price' },
+    { label: 'Quantity', field: 'stockQuantity' },
+    {
+      label: 'Availability',
+      component: ({ data }) => (
+        <Checkbox
+          label="Availability"
+          defaultChecked={data.availability}
+          onChange={() => {
+            // TO DO
+          }}
+        />
+      ),
+    },
+
+    {
+      label: 'Actions',
+      component: (data) => (
+        <DropdownMenu trigger="Actions">
+          <Dialog
+            triggerLabel="Edit"
+            onOpen={() => setProductToEdit(data)}
+            onClose={() => setProductToEdit(null)}
+          >
+            <Heading>Edit Product</Heading>
+            {productToEdit && <EditProductForm productToEdit={productToEdit} />}
+          </Dialog>
+          <Button
+            onClick={() => {
+              // TO DO
+            }}
+          >
+            Delete
+          </Button>
+        </DropdownMenu>
+      ),
+    },
+  ]
 
   useEffect(() => {
     getConsoleProductsQuery.fetch({

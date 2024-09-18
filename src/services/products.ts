@@ -80,6 +80,11 @@ export type AddProductOptions = {
   }
 }
 
+export type EditProductOptions = {
+  id: string
+  payload: AddProductOptions['payload']
+}
+
 export type GetProductsOptions = {
   query?: Query & Partial<Product>
 }
@@ -92,12 +97,25 @@ export const getProducts = (options?: GetProductsOptions) => {
 export const addProduct = (options: AddProductOptions) => {
   const { payload } = options
   return jsonApi<Product>({
-    endpoint: '/products',
+    endpoint: `${END_POINT}`,
     init: {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        body: JSON.stringify(payload),
       },
+    },
+  })
+}
+
+export const editProduct = (options: EditProductOptions) => {
+  const { id, payload } = options
+
+  return jsonApi<Product>({
+    endpoint: `${END_POINT}/${id}`,
+    init: {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     },
   })
