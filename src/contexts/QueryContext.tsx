@@ -19,7 +19,7 @@ type QueryContextValue = {
   >
   addProductQuery: QueryResult<AddProductOptions, Product>
   editProductQuery: QueryResult<EditProductOptions, Product>
-  deleteProductQuery: QueryResult<DeleteProductOptions, Product>
+  deleteProductQuery: QueryResult<DeleteProductOptions, Record<string, never>>
 }
 
 export const QueryContext = createContext<QueryContextValue>(
