@@ -15,6 +15,7 @@ import { useQueryContext } from '@/hooks/useQueryContext'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { boolean, number, object, string } from 'yup'
+import { useToastContext } from '@/contexts/ToastContext'
 
 const schema = object({
   availability: boolean().required(),
@@ -44,6 +45,7 @@ const colorOptions = getInputOptions(productColors)
 
 const AddProductForm = () => {
   const { addProductQuery, getConsoleProductsQuery } = useQueryContext()
+  const { addToast } = useToastContext()
   const {
     register,
     handleSubmit,
@@ -63,10 +65,10 @@ const AddProductForm = () => {
             products ? [...products, addedProduct] : [addedProduct],
           )
           reset(defaultValues)
-          console.log(`Successfully added product ${addedProduct.name}`)
+          addToast(`Successfully added product ${addedProduct.name}`, 'success')
         },
         onError: () => {
-          console.log('Failed to add product')
+          addToast('Failed to add product!', 'error')
         },
       },
     )
