@@ -156,7 +156,7 @@ const EditProductForm = ({ productToEdit }: Props) => {
       </div>
       <div className="mt-4 flex items-center justify-end gap-4">
         <Button type="submit" disabled={editProductQuery.isLoading}>
-          Add
+          Edit
         </Button>
         <Button
           type="button"
