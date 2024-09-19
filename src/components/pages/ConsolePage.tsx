@@ -37,7 +37,7 @@ const ConsolePage = () => {
 
     {
       label: 'Actions',
-      component: (data) => (
+      component: ({ data }) => (
         <DropdownMenu trigger="Actions">
           <Dialog
             triggerLabel="Edit"
