@@ -128,7 +128,7 @@ export const editProduct = (options: EditProductOptions) => {
 export const deleteProduct = (options: DeleteProductOptions) => {
   const { id } = options
 
-  return jsonApi<Product[]>({
+  return jsonApi<Record<string, never>>({
     endpoint: `${END_POINT}/${id}`,
     init: {
       method: 'DELETE',
