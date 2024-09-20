@@ -63,7 +63,7 @@ const AddProductForm = () => {
             products ? [...products, addedProduct] : [addedProduct],
           )
           reset(defaultValues)
-          console.log('Successfully added product ${addedProduct.name}')
+          console.log(`Successfully added product ${addedProduct.name}`)
         },
         onError: () => {
           console.log('Failed to add product')

@@ -1,6 +1,6 @@
 import useQuery, { QueryResult } from '@/hooks/useQuery'
 import { GetProductsOptions, Product, getProducts } from '@/services/products'
-import { addProduct, AddProductOptions } from '@/services/jsonApi'
+import { addProduct, AddProductOptions } from '@/services/products'
 import { ReactNode, createContext } from 'react'
 
 type QueryContextValue = {

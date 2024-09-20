@@ -88,3 +88,17 @@ export const getProducts = (options?: GetProductsOptions) => {
   const { query } = options || {}
   return jsonApi<Product[]>({ endpoint: END_POINT, query: query })
 }
+
+export const addProduct = (options: AddProductOptions) => {
+  const { payload } = options
+  return jsonApi<Product>({
+    endpoint: '/products',
+    init: {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    },
+  })
+}
