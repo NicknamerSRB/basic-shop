@@ -6,6 +6,8 @@ import {
   getProducts,
   EditProductOptions,
   editProduct,
+  deleteProduct,
+  DeleteProductOptions,
 } from '@/services/products'
 import { ReactNode, createContext } from 'react'
 
@@ -17,6 +19,7 @@ type QueryContextValue = {
   >
   addProductQuery: QueryResult<AddProductOptions, Product>
   editProductQuery: QueryResult<EditProductOptions, Product>
+  deleteProductQuery: QueryResult<DeleteProductOptions, Product>
 }
 
 export const QueryContext = createContext<QueryContextValue>(
@@ -32,12 +35,14 @@ export const QueryContextProvider = ({ children }: Props) => {
   const getConsoleProductsQuery = useQuery({ fn: getProducts })
   const addProductQuery = useQuery({ fn: addProduct })
   const editProductQuery = useQuery({ fn: editProduct })
+  const deleteProductQuery = useQuery({ fn: deleteProduct })
 
   const value = {
     getShopProductsQuery,
     getConsoleProductsQuery,
     addProductQuery,
     editProductQuery,
+    deleteProductQuery,
   }
 
   return <QueryContext.Provider value={value}>{children}</QueryContext.Provider>

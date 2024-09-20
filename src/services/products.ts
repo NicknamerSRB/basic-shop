@@ -89,6 +89,10 @@ export type GetProductsOptions = {
   query?: Query & Partial<Product>
 }
 
+export type DeleteProductOptions = {
+  id: string
+}
+
 export const getProducts = (options?: GetProductsOptions) => {
   const { query } = options || {}
   return jsonApi<Product[]>({ endpoint: END_POINT, query: query })
@@ -117,6 +121,18 @@ export const editProduct = (options: EditProductOptions) => {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
+    },
+  })
+}
+
+export const deleteProduct = (options: DeleteProductOptions) => {
+  const { id } = options
+
+  return jsonApi<Record<string, never>>({
+    endpoint: `${END_POINT}/${id}`,
+    init: {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
     },
   })
 }

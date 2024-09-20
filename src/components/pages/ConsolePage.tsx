@@ -12,9 +12,26 @@ import AddProductForm from '../Forms/AddProductForm'
 import EditProductForm from '../Forms/EditProductForm'
 
 const ConsolePage = () => {
-  const { getConsoleProductsQuery } = useQueryContext()
+  const { getConsoleProductsQuery, deleteProductQuery } = useQueryContext()
   const [searchQuery, setSearchQuery] = useState('')
   const [productToEdit, setProductToEdit] = useState<Product | null>(null)
+
+  const handleDeleteProduct = (data: Product) => {
+    deleteProductQuery.fetch(
+      { id: data.id },
+      {
+        onSuccess: () => {
+          getConsoleProductsQuery.update(
+            (products) =>
+              products?.filter((product) => product.id !== data.id) || products,
+          )
+        },
+        onError: () => {
+          console.log('Error deleting product')
+        },
+      },
+    )
+  }
 
   const tableConfig: TableConfig<Product> = [
     { label: 'Product Name', field: 'name' },
@@ -47,13 +64,7 @@ const ConsolePage = () => {
             <Heading>Edit Product</Heading>
             {productToEdit && <EditProductForm productToEdit={productToEdit} />}
           </Dialog>
-          <Button
-            onClick={() => {
-              // TO DO
-            }}
-          >
-            Delete
-          </Button>
+          <Button onClick={() => handleDeleteProduct(data)}>Delete</Button>
         </DropdownMenu>
       ),
     },
