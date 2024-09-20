@@ -15,11 +15,12 @@ type Props = {
   error?: string
   options: Option[]
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  disabled?: boolean
 }
 
 const RadioGroup = forwardRef(
   (
-    { label, name, required, error, options, onChange }: Props,
+    { label, name, required, error, options, onChange, disabled }: Props,
     ref: ForwardedRef<HTMLInputElement>,
   ) => {
     const id = useId()
@@ -38,6 +39,7 @@ const RadioGroup = forwardRef(
                   value={option.value}
                   onChange={onChange}
                   required={required}
+                  disabled={disabled}
                   ref={ref}
                 />
                 <span className="">{option.label}</span>

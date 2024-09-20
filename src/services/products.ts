@@ -67,6 +67,19 @@ export type Product = {
   stockQuantity: number
 }
 
+export type AddProductOptions = {
+  payload: {
+    availability: boolean
+    category: string
+    color: string
+    description?: string
+    image: string
+    name: string
+    price: number
+    stockQuantity: number
+  }
+}
+
 export type GetProductsOptions = {
   query?: Query & Partial<Product>
 }
@@ -74,4 +87,18 @@ export type GetProductsOptions = {
 export const getProducts = (options?: GetProductsOptions) => {
   const { query } = options || {}
   return jsonApi<Product[]>({ endpoint: END_POINT, query: query })
+}
+
+export const addProduct = (options: AddProductOptions) => {
+  const { payload } = options
+  return jsonApi<Product>({
+    endpoint: '/products',
+    init: {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    },
+  })
 }
