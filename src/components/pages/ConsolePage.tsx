@@ -10,7 +10,7 @@ import TextField from '../ui/TextField'
 import Dialog from '../ui/Dialog'
 import AddProductForm from '../Forms/AddProductForm'
 import EditProductForm from '../Forms/EditProductForm'
-import { useToastContext } from '@/contexts/ToastContext'
+import { useToastContext } from '@/hooks/useToast'
 
 const ConsolePage = () => {
   const { getConsoleProductsQuery, deleteProductQuery, patchProductQuery } =

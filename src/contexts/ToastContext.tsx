@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react'
+import { createContext, useState, ReactNode } from 'react'
 
 export type Toast = {
   id: string
@@ -7,23 +7,12 @@ export type Toast = {
 }
 
 type ToastContextType = {
-  toasts: Toast[]
   addToast: (message: string, type: 'success' | 'error') => void
-  deleteToastById: (id: string) => void
 }
 
-const ToastContext = createContext<ToastContextType | undefined>(undefined)
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const useToastContext = () => {
-  const context = useContext(ToastContext)
-  if (!context) {
-    throw new Error(
-      'useToastContext must be used within a ToastContextProvider',
-    )
-  }
-  return context
-}
+export const ToastContext = createContext<ToastContextType | undefined>(
+  undefined,
+)
 
 export const ToastContextProvider = ({ children }: { children: ReactNode }) => {
   const [toasts, setToasts] = useState<Toast[]>([])
@@ -42,7 +31,7 @@ export const ToastContextProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <ToastContext.Provider value={{ toasts, addToast, deleteToastById }}>
+    <ToastContext.Provider value={{ addToast }}>
       {children}
       <div className="fixed bottom-5 right-5 space-y-2">
         {toasts.map((toast) => (
@@ -52,7 +41,6 @@ export const ToastContextProvider = ({ children }: { children: ReactNode }) => {
               toast.type === 'success' ? 'bg-green-500' : 'bg-red-500'
             } animate-fadeOut`}
             onAnimationEnd={() => deleteToastById(toast.id)}
-            style={{ animation: 'fadeOut 3s ease-in-out forwards' }}
           >
             {toast.message}
           </div>

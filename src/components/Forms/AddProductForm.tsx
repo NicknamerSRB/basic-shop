@@ -15,7 +15,7 @@ import { useQueryContext } from '@/hooks/useQueryContext'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { boolean, number, object, string } from 'yup'
-import { useToastContext } from '@/contexts/ToastContext'
+import { useToastContext } from '@/hooks/useToast'
 
 const schema = object({
   availability: boolean().required(),
