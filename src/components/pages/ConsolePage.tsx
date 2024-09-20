@@ -10,10 +10,12 @@ import TextField from '../ui/TextField'
 import Dialog from '../ui/Dialog'
 import AddProductForm from '../Forms/AddProductForm'
 import EditProductForm from '../Forms/EditProductForm'
+import { useToastContext } from '@/hooks/useToast'
 
 const ConsolePage = () => {
   const { getConsoleProductsQuery, deleteProductQuery, patchProductQuery } =
     useQueryContext()
+  const { addToast } = useToastContext()
   const [searchQuery, setSearchQuery] = useState('')
   const [productToEdit, setProductToEdit] = useState<Product | null>(null)
 
@@ -26,9 +28,10 @@ const ConsolePage = () => {
             (products) =>
               products?.filter((product) => product.id !== data.id) || products,
           )
+          addToast(`Successfully added product ${data.name}`, 'success')
         },
         onError: () => {
-          console.log('Error deleting product')
+          addToast('Error deleting product', 'error')
         },
       },
     )
@@ -43,9 +46,10 @@ const ConsolePage = () => {
             (products) =>
               products?.map((p) => (p.id === data.id ? data : p)) || products,
           )
+          addToast(`Successfully patch product ${data.name}`, 'success')
         },
         onError: () => {
-          console.log('Failed to patch product')
+          addToast('Failed to patch product', 'error')
         },
       },
     )
