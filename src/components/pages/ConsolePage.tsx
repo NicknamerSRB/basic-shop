@@ -12,7 +12,8 @@ import AddProductForm from '../Forms/AddProductForm'
 import EditProductForm from '../Forms/EditProductForm'
 
 const ConsolePage = () => {
-  const { getConsoleProductsQuery, deleteProductQuery } = useQueryContext()
+  const { getConsoleProductsQuery, deleteProductQuery, patchProductQuery } =
+    useQueryContext()
   const [searchQuery, setSearchQuery] = useState('')
   const [productToEdit, setProductToEdit] = useState<Product | null>(null)
 
@@ -33,6 +34,22 @@ const ConsolePage = () => {
     )
   }
 
+  const handlePatchProduct = (data: Product) =>
+    patchProductQuery.fetch(
+      { id: data.id, payload: { availability: data.availability } },
+      {
+        onSuccess: () => {
+          getConsoleProductsQuery.update(
+            (products) =>
+              products?.map((p) => (p.id === data.id ? data : p)) || products,
+          )
+        },
+        onError: () => {
+          console.log('Failed to patch product')
+        },
+      },
+    )
+
   const tableConfig: TableConfig<Product> = [
     { label: 'Product Name', field: 'name' },
     { label: 'Category', field: 'category' },
@@ -45,8 +62,9 @@ const ConsolePage = () => {
         <Checkbox
           label="Availability"
           defaultChecked={data.availability}
-          onChange={() => {
-            // TO DO
+          onChange={(event) => {
+            const { checked } = event.target
+            handlePatchProduct({ ...data, availability: checked })
           }}
         />
       ),

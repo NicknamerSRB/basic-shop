@@ -93,6 +93,11 @@ export type DeleteProductOptions = {
   id: string
 }
 
+export type PatchProductOptions = {
+  id: string
+  payload: Partial<AddProductOptions['payload']>
+}
+
 export const getProducts = (options?: GetProductsOptions) => {
   const { query } = options || {}
   return jsonApi<Product[]>({ endpoint: END_POINT, query: query })
@@ -133,6 +138,19 @@ export const deleteProduct = (options: DeleteProductOptions) => {
     init: {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
+    },
+  })
+}
+
+export const patchProduct = (options: PatchProductOptions) => {
+  const { id, payload } = options
+
+  return jsonApi<Product>({
+    endpoint: `${END_POINT}/${id}`,
+    init: {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
     },
   })
 }
