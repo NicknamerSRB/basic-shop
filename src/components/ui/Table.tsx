@@ -24,7 +24,7 @@ const Table = ({ tableConfig, data, isLoading, error }: Props) => {
   }
 
   if (error) {
-    return <BasicError message={error} />
+    return <BasicError error={error} />
   }
   return (
     <div className="overflow-x-auto">
