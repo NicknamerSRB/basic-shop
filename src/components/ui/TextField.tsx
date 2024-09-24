@@ -13,7 +13,7 @@ const TextField = ({ label, value, onChange, placeholder }: Props) => {
   const id = useId()
   return (
     <div className="mb-4">
-      <BasicLabel htmlFor={id}>{label}</BasicLabel>
+      <BasicLabel id={id} label={label}></BasicLabel>
       <BasicInput
         id={label && id}
         value={value}
