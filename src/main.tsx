@@ -18,6 +18,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         </BrowserRouter>
       </QueryContextProvider>
     </React.StrictMode>
-    s
   </ToastContextProvider>,
 )
